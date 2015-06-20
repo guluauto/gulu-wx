@@ -1,0 +1,19 @@
+{
+  "name": "gulu-wx",
+  "version": "0.0.0",
+  "authors": [
+    "Kane <dmccer@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "zepto.js": "~1.1.6",
+    "normalize.css": "~3.0.3"
+  }
+}
