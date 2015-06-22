@@ -4,7 +4,7 @@ var path = require('path');
 module.exports = {
   entry: {
     index: './asset/js/index.js',
-    vendor: ['./bower_components/zepto.js/dist/zepto.js']
+    vendor: ['./bower_components/zepto/dist/zepto.js', './bower_components/touch.code.baidu.com/touch-0.2.14.js']
   },
   output: {
     path: path.join(__dirname, 'dist', 'js'),

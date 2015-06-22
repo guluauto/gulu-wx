@@ -1,8 +1,439 @@
 /* global $, Zepto */
+var touch = require('../../bower_components/touch.code.baidu.com/touch-0.2.14');
+var remote = require('./util/remote');
+var toast = require('./util/toast');
+var validator = require('./util/validator');
 
-$(function() {
-  var $footer = $('.footer');
 
-});
+function swiper(options) {
+  this.$container = $(options.container);
+  this.$group = $('.pg-pic-group', this.$container);
+  this.$pics = $('.pg-pic', this.$group);
 
-module.exports = {};
+  this.$indicator_container = $(options.indicators, this.$container);
+  this.indicator_tpl = '<span data-index="{{index}}"></span>';
+
+  this.count = this.$pics.length;
+  this.H = this.$pics.eq(0).height();
+  this.W = this.$pics.eq(0).width();
+
+  // this.W = this.$group.width();
+
+  this.init();
+}
+
+swiper.translate = function(el, x, y, z) {
+  x = x || 0;
+  y = y || 0;
+  z = z || 0;
+
+  el.style.webkitTransform = 'translate3d(' + x + 'px,' + y + 'px,' + z + 'px)';
+}
+
+swiper.prototype.init = function() {
+  var self = this;
+
+  // 设置 group 宽、高度
+  this.$group.height(this.H);
+  this.$group.width(this.W);
+
+  // 自动生成 indicators
+  var indicators_inner_html = '';
+
+  for (var i = 0; i < this.count; i++) {
+    indicators_inner_html += this.indicator_tpl.replace(/{{index}}/, i);
+  }
+
+  this.$indicator_container.html(indicators_inner_html);
+
+  this.$indicators = $('span', this.$indicator_container);
+
+  // 当前 pic
+  this.current = 0;
+  this.$indicators.eq(this.current).addClass('active');
+
+  // 隐藏未激活项
+  this.$pics.each(function(index) {
+    if (index === self.current) {
+      return;
+    }
+
+    $(this).css({
+      opacity: 0
+    });
+  });
+
+  this.bindEvt();
+}
+
+swiper.prototype.next_index = function(direction) {
+  if (direction === 'left') {
+    if (this.current === this.count - 1) {
+      return 0;
+    }
+
+    return (this.current + 1);
+  }
+
+  if (direction === 'right') {
+    if (this.current === 0) {
+      return (this.count - 1);
+    }
+
+    return (this.current - 1);
+  }
+}
+
+swiper.prototype.move_next = function(el, direction, x) {
+  var f = direction === 'left' ? 1 : -1;
+
+  swiper.translate(el, f * this.W + (x || 0));
+}
+
+swiper.prototype.end = function(current_el, next_el, next, direction) {
+  var self = this;
+  var $animate_els = $([next_el, current_el]);
+
+  $animate_els.css({
+    transition: 'transform 0.3s ease'
+  });
+
+  setTimeout(function() {
+    $animate_els.css({
+      transition: 'none'
+    });
+
+    $(current_el).css({
+      opacity: 0
+    });
+
+    self.current = next;
+  }, 300);
+
+  swiper.translate(next_el, 0);
+  swiper.translate(current_el, direction === 'left' ? -self.W : self.W);
+
+  self.$indicators.eq(self.current).removeClass('active');
+  self.$indicators.eq(next).addClass('active');
+}
+
+swiper.prototype.bindEvt = function() {
+  var self = this;
+
+  var next, next_el, current_el;
+
+  // bind swipe event
+  touch.on(this.$container.get(0), 'swipestart', function(evt) {
+    if (evt.direction === 'right' || evt.direction === 'left') {
+      next = self.next_index(evt.direction);
+    
+      current_el = self.$pics.get(self.current);
+      next_el = self.$pics.get(next);
+
+      $(next_el).css({
+        opacity: 1
+      });
+      
+      self.move_next(next_el, evt.direction, evt.distanceX);
+    }
+  });
+  
+  touch.on(this.$container.get(0), 'swiping', function(evt) {
+    if (evt.direction === 'right' || evt.direction === 'left') {
+      swiper.translate(current_el, evt.distanceX);
+      self.move_next(next_el, evt.direction, evt.distanceX);
+    }
+  });
+
+  touch.on(this.$container.get(0), 'swipeend', function(evt) {
+    if (evt.direction === 'right' || evt.direction === 'left') {
+      self.end(current_el, next_el, next, evt.direction);
+    }
+  });
+
+  touch.on(this.$indicator_container.get(0), 'tap', 'span', function(evt) {
+    var $a = $(evt.target);
+
+    if ($a.hasClass('active')) {
+      return;
+    }
+
+    var i = parseInt($a.attr('data-index'));
+
+    var current_el = self.$pics.get(self.current);
+    var next_el = self.$pics.get(i);
+    var direction = (i - self.current > 0) ? 'left' : 'right';
+
+    $(next_el).css({
+      opacity: 1
+    });
+
+    self.move_next(next_el, direction);
+
+    self.end(current_el, next_el, i, direction);
+  });
+}
+
+var index_mod = {
+  init: function() {
+    this.$book_btn = $('[eid="book-btn"]');
+    this.$tel = $('[eid="tel"]');
+    this.$code = $('[eid="code"]');
+    this.$get_code_btn = $('[eid="get-code-btn"]');
+    this.$bookit_btn = $('[eid="bookit-btn"]');
+
+    this.bindEvt();
+
+    new swiper({
+      container: '[eid="pg-pic-group-container"]',
+      indicators: '.indicators'
+    });
+  },
+
+  bindEvt: function() {
+    var self = this;
+
+    // 按钮 - 触发弹出预约框
+    touch.on(this.$book_btn.get(0), 'tap', this.book_mgr.toggle);
+    
+    // 获取验证码
+    touch.on(this.$get_code_btn.get(0), 'tap', function() {
+      if ($(this).prop('disabled')) {
+        return;
+      }
+
+      self.identify.apply(self, arguments);
+    });
+
+    // 立即预约
+    touch.on(this.$bookit_btn.get(0), 'tap', function() {
+      if ($(this).prop('disabled')) {
+        return;
+      }
+
+      self.bookit.apply(self, arguments);
+    });
+
+    this.page_mgr();
+  },
+
+  book_mgr: (function() {
+    var $book_mask = $('[eid="book-mask"]');
+    var $book_panel = $('[eid="book-panel"]');
+    var $book_btn = $('[eid="book-btn"]');
+    var ACTIVE_CLASS = 'active';
+    var active = false;
+    var TIP_CLOSED = '获取验证码立即预约';
+    var TIP_OPENED = '关闭';
+
+    return {
+      toggle: function() {
+        $book_mask[active ? 'removeClass' : 'addClass'](ACTIVE_CLASS);
+        $book_panel[active ? 'removeClass' : 'addClass'](ACTIVE_CLASS);
+
+        active = !active;
+
+        $book_btn.text(active ? TIP_OPENED : TIP_CLOSED);
+      }
+    };
+  })(),
+
+  page_mgr: function() {
+    var $body = $('[eid="body"]');
+    var $inner_body = $('[eid="body-inner"]');
+    var inner_body = $inner_body.get(0);
+    
+    var H = $body.height();
+    
+    var $pgs = $inner_body.children();
+    var max_page_no = $pgs.length;
+    var page_no = 0;
+
+    $pgs.height(H);
+
+    $(document).on('touchmove', function(e) {
+      e.preventDefault();
+
+      return false;
+    });
+
+    function scroll() {
+      if (page_no === -1) {
+        page_no = 0;
+        return;
+      }
+
+      if (page_no === max_page_no) {
+        page_no = max_page_no - 1;
+        return;
+      }
+
+      $inner_body.animate({
+        translate3d: '0,' + (-page_no * H) + 'px,0'
+      }, 300);
+    }
+
+    function move(evt) {
+      // evt.preventDefault();
+      // evt.stopPropagation();
+
+      if (page_no === 0 && evt.distanceY > 0 || page_no === max_page_no - 1 && evt.distanceY < 0) {
+        return;
+      }
+
+      inner_body.style.webkitTransform = 'translate3d(0,' + (evt.distanceY - page_no * H) + 'px,0)';
+    }
+
+    // touch.on(inner_body, 'swipestart', move);
+
+    touch.on(inner_body, 'swiping', move);
+
+    touch.on(inner_body, 'swipeend', function(evt) {
+      if (Math.abs(evt.distanceY) >= 30) {
+        if (evt.direction === 'up') {
+          page_no++;
+        } else if (evt.direction === 'down') {
+          page_no--;
+        }
+      }
+
+      scroll();
+    });
+  },
+
+  // 获取验证码
+  identify: function() {
+    var tel = this.$tel.val();
+
+    if (!this.validate_tel(tel)) {
+      return;
+    }
+
+    // 发送验证码 loading
+    this.$get_code_btn.addClass('loading');
+    this.$get_code_btn.prop('disabled', true);
+
+    var self = this;
+
+    remote.post('/code', {
+      mobile: tel
+    }, function() {
+      self.$get_code_btn.removeClass('loading');
+
+      self.$code.focus();
+
+      // 发送成功，则可召唤专业检师
+      self.$bookit_btn.prop('disabled', false);
+
+      self.count_down(60, function(time) {
+        if (time > 0) {
+          return self.$get_code_btn.text(time + '秒');
+        }
+
+        // 倒计时结束，可重发验证码
+        self.$get_code_btn
+          .prop('disabled', false)
+          .text('获取验证码');
+      });
+    }, function() {
+      toast.toggle('验证码发送失败，请重试');
+      // 发送失败，可重发验证码
+      self.$get_code_btn.removeClass('loading');
+      self.$get_code_btn.prop('disabled', false);
+    });
+  },
+
+  // 立即预约
+  bookit: function() {
+    var data = this.get_data();
+
+    if (!(this.validate_tel(data.mobile) && this.validate_code(data.code))) {
+      return;
+    }
+
+    // 若验证码计时器还在倒计时，则关闭定时器
+    if (this.count_down.timer) {
+      this.count_down.clear();
+    }
+
+    this.$get_code_btn.prop('disabled', true);
+    this.$bookit_btn.prop('disabled', true);
+
+    // TODO
+    // 提交预约提示
+
+    remote.post('/order/wx', data, bookit_success, bookit_error);
+
+    var self = this;
+
+    function bookit_success(res) {
+      self.$get_code_btn
+        .prop('disabled', false)
+        .text('获取验证码');
+
+      self.$bookit_btn.prop('disabled', false);
+
+      toast.toggle('预约成功');
+    }
+
+    function bookit_error(code, msg) {
+      self.$get_code_btn
+        .prop('disabled', false)
+        .text('获取验证码');
+      self.$bookit_btn.prop('disabled', false);
+
+      toast.toggle('预约失败，请重试');
+    }
+  },
+
+  get_data: function() {
+    return {
+      mobile: this.$tel.val(),
+      code: this.$code.val()
+    };
+  },
+
+  validate_tel: function(tel) {
+    var r = validator.tel(tel);
+    
+    if (!r) {
+      toast.toggle('手机号不正确');
+    }
+
+    return r;
+  },
+
+  validate_code: function(code) {
+    var r = validator.code(code);
+
+    if (!r) {
+      toast.toggle('验证码不正确');
+    }
+
+    return r;
+  },
+
+  count_down: function(time, fn) {
+    var self = this;
+
+    this.count_down.clear = function() {
+      clearInterval(self.count_down.timer);
+
+      self.count_down.timer = null;
+    };
+
+    fn(--time);
+
+    return (this.count_down.timer = setInterval(function(){
+      if (time > 0) {
+        return fn(--time);  
+      }
+
+      self.count_down.clear();      
+    }, 1000));
+  }
+};
+
+index_mod.init();
+
+module.exports = index_mod;

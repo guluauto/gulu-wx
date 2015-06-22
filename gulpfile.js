@@ -85,3 +85,5 @@ gulp.task('watch', ['default'], function() {
   // gulp.watch([proj_config.js, 'asset/js/**/*'], ['wx-js']);
   gulp.watch([proj_config.page], ['wx-page']);
 });
+
+// MODULES="zepto event ajax form touch fx_methods fx detect" npm run-script dist
