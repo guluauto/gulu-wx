@@ -1,3 +1,5 @@
+require('./index.less');
+
 var touch = require('../../../../bower_components/touch.code.baidu.com/touch-0.2.14');
 
 module.exports = function(container, scroller) {
