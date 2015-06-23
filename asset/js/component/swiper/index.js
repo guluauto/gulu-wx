@@ -11,10 +11,15 @@ function swiper(options) {
   this.indicator_tpl = '<span data-index="{{index}}"></span>';
 
   this.count = this.$pics.length;
-  this.H = this.$pics.eq(0).height();
-  this.W = this.$pics.eq(0).width();
 
-  this.init();
+  var self = this;
+  
+  $(window).on('load', function() {
+    self.H = self.$pics.eq(0).height();
+    self.W = self.$pics.eq(0).width();  
+
+    self.init();
+  });
 }
 
 swiper.translate = function(el, x, y, z) {
