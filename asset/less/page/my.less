@@ -3,10 +3,6 @@
 @guluYellow: #ffc300;
 @guluBrown: #ba7e00;
 
-.profile-wrapper {
-
-}
-
 .profile {
   width: 100%;
   display: table;
@@ -17,73 +13,56 @@
   > div {
     display: table-cell;
     vertical-align: middle;
-    padding-top: 15px;
-    padding-bottom: 15px;
-  }
-
-  .avatar {
-    img {
-      display: block;
-      width: 126px;
-      height: 126px;
-      margin: 0 auto;
-      border-radius: 63px;
-    }
-  }
-
-  .detail {
-    padding-left: 15px;
-    padding-right: 15px;
-
-    .name-wrapper {
-      b {
-        font-size: 22px;
-      }
-
-      span {
-        color: @guluBrown;
-        font-size: 12px;
-      }
-    }
-
-    .job {
-      color: @guluBrown;
-    }
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
 }
 
-.intro-nav {
-  list-style: none;
+.name {
+  width: 40%;
+
+  h2 {
+    font-size: 22px;
+    text-align: right;
+    margin-bottom: 0;
+    padding-right: 15px;
+  }
+}
+
+.welcome {
+  p {
+    color: @guluBrown;
+    margin-bottom: 0;
+  }
+}
+
+.service-nav {
   width: 100%;
-  margin-top: 0;
+  list-style: none;
   padding-left: 0;
+  margin-top: 0;
+  background-color: @guluYellow;
   display: table;
   table-layout: fixed;
   border-collapse: collapse;
-  background-color: @guluYellow;
 
   li {
     position: relative;
     display: table-cell;
     vertical-align: middle;
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    // border-right: 1px solid @guluBrown;
-
-    // &:last-child {
-    //   border-right: none;
-    // }
 
     a {
       display: block;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      text-align: center;
       color: @guluBrown;
       font-size: 16px;
     }
 
     &.active {
       a {
-        color: @white;  
+        color: @white;
       }
 
       &:after {
@@ -100,20 +79,6 @@
         border-right: 8px solid transparent;
         border-top: 8px solid transparent;
       }
-    }
-  }
-}
-
-.intro-body {
-  list-style: none;
-  padding-left: 0;
-
-  li {
-    padding-left: 15px;
-    padding-right: 15px;
-
-    p {
-      color: #666666;
     }
   }
 }
