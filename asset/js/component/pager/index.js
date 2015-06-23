@@ -15,12 +15,6 @@ module.exports = function(container, scroller) {
 
   $pgs.height(H);
 
-  $(document).on('touchmove', function(e) {
-    e.preventDefault();
-
-    return false;
-  });
-
   function scroll() {
     if (page_no === -1) {
       page_no = 0;

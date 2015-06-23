@@ -2,6 +2,11 @@
 
 @guluYellow: #ffc300;
 @guluBrown: #ba7e00;
+@serviceBodyBackgroundColor: #434242;
+
+body {
+  background-color: @serviceBodyBackgroundColor;
+}
 
 .profile {
   width: 100%;
@@ -40,7 +45,7 @@
   width: 100%;
   list-style: none;
   padding-left: 0;
-  margin-top: 0;
+  margin: 0;
   background-color: @guluYellow;
   display: table;
   table-layout: fixed;
@@ -50,21 +55,15 @@
     position: relative;
     display: table-cell;
     vertical-align: middle;
-
-    a {
-      display: block;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      text-align: center;
-      color: @guluBrown;
-      font-size: 16px;
-    }
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    color: @guluBrown;
+    font-size: 16px;
 
     &.active {
-      a {
-        color: @white;
-      }
-
+      color: @serviceBodyBackgroundColor;
+      
       &:after {
         position: absolute;
         left: 50%;
@@ -74,10 +73,78 @@
         content: '';
         width: 0;
         height: 0;
-        border-bottom: 8px solid @white;
+        border-bottom: 8px solid @serviceBodyBackgroundColor;
         border-left: 8px solid transparent;
         border-right: 8px solid transparent;
         border-top: 8px solid transparent;
+      }
+    }
+  }
+}
+
+.service-body {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+
+  > li {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    padding: 15px;
+    background-color: @serviceBodyBackgroundColor;
+    display: none;
+  }
+
+  li > ol {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+
+    li {
+      margin-bottom: 15px;
+      background-color: @white;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .car-photo {
+        width: 100%;
+
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      .description {
+        padding: 15px 20px;
+
+        > div {
+          color: #999999;
+        }
+
+        .title {
+          font-size: 16px;
+          margin-bottom: 10px;
+          color: #000000;
+        }
+      }
+
+      .action {
+        width: 100%;
+        a {
+          display: block;
+          background-color: @guluYellow;
+          color: @guluBrown;
+          text-align: center;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          font-size: 16px;
+        }
       }
     }
   }

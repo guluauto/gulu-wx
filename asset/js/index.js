@@ -28,6 +28,12 @@ var index_mod = {
   bindEvt: function() {
     var self = this;
 
+    $(document).on('touchmove', function(e) {
+      e.preventDefault();
+
+      return false;
+    });
+
     // 按钮 - 触发弹出预约框
     touch.on(this.$book_btn.get(0), 'tap', this.book_mgr.toggle);
     
