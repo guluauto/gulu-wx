@@ -1,4 +1,5 @@
 @import '../global/site.variable';
+@import '../global/util.less';
 
 @inputBorderColor: #cccccc;
 @inputFontSize: 14px;
@@ -7,12 +8,18 @@
 @orange: #ffb400;
 @guluYellow: #ffc300;
 
-.reserve-container {
+.pg.first {
+  background-color: #fefefe;
+}
+
+.reserve-container, .flow-container {
   position: absolute;
   width: 100%;
   top: 50%;
   transform: translate(0, -50%);
+}
 
+.reserve-container {
   header {
     margin-bottom: 50px;
     padding-left: 15px;
@@ -135,5 +142,77 @@
 
   a {
     color: #333333;
+  }
+}
+
+
+.pg.second {
+  background-color: #FFC600;
+
+  h2 {
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+
+.flow-map {
+  list-style: none;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  .clearfix();
+
+  li {
+    position: relative;
+    width: 50%;
+    float: left;
+    margin-bottom: 30px;
+    text-align: center;
+
+    &.last-line {
+      margin-bottom: 0;
+    }
+
+    h3 {
+      font-size: 18px;
+      color: #413535;
+      margin-top: 5px;
+      margin-bottom: 0;
+    }
+
+    img {
+      width: 61px;
+      height: 60px;
+    }
+
+    .flow-arrow {
+      position: absolute;
+      width: 7px;
+      height: 13px;
+      background: url('../img/flow/flow-next.png') no-repeat center center;
+      background-size: 100% 100%;
+
+      &.right, &.left {
+        top: 50%;
+        margin-top: -6.5px;
+      }
+
+      &.right {
+        right: -3.5px;
+      }
+
+      &.left {
+        left: -3.5px;
+        transform: rotate(180deg);
+      }
+
+      &.bottom {
+        left: 50%;
+        margin-left: -3.5px;
+        bottom: -6.5px - 15px;
+        transform: rotate(90deg);
+      }
+    }
   }
 }

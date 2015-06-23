@@ -14,7 +14,7 @@ var JS_DIR_NAME = 'js';
 
 var proj_config = {
     img: 'asset/img/**/*',
-    less: ['asset/less/global/site.less', 'asset/less/page/**/*.less'],
+    less: ['asset/less/global/global.less', 'asset/less/page/**/*.less'],
     font: [],
     js: [],
     page: 'page/**/*',
