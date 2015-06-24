@@ -1,10 +1,10 @@
-/* global $, Zepto */
-var touch = require('../../bower_components/touch.code.baidu.com/touch-0.2.14');
-var remote = require('./util/remote');
-var toast = require('./util/toast');
-var validator = require('./util/validator');
+/* global module, $ */
+// var touch = require('../../bower_components/touch.code.baidu.com/touch-0.2.14');
+// var remote = require('./util/remote');
+// var toast = require('./util/toast');
+// var validator = require('./util/validator');
 var pager = require('./component/pager/index');
-var swiper = require('./component/swiper/index')
+var swiper = require('./component/swiper/index');
 
 var index_mod = {
   init: function() {
@@ -26,7 +26,7 @@ var index_mod = {
   },
 
   bindEvt: function() {
-    var self = this;
+    // var self = this;
 
     $(document).on('touchmove', function(e) {
       e.preventDefault();
