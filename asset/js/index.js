@@ -75,139 +75,139 @@ var index_mod = {
         $book_btn.text(active ? TIP_OPENED : TIP_CLOSED);
       }
     };
-  })(),
+  })()
 
   // 获取验证码
-  identify: function() {
-    var tel = this.$tel.val();
+  // identify: function() {
+  //   var tel = this.$tel.val();
 
-    if (!this.validate_tel(tel)) {
-      return;
-    }
+  //   if (!this.validate_tel(tel)) {
+  //     return;
+  //   }
 
-    // 发送验证码 loading
-    this.$get_code_btn.addClass('loading');
-    this.$get_code_btn.prop('disabled', true);
+  //   // 发送验证码 loading
+  //   this.$get_code_btn.addClass('loading');
+  //   this.$get_code_btn.prop('disabled', true);
 
-    var self = this;
+  //   var self = this;
 
-    remote.post('/code', {
-      mobile: tel
-    }, function() {
-      self.$get_code_btn.removeClass('loading');
+  //   remote.post('/code', {
+  //     mobile: tel
+  //   }, function() {
+  //     self.$get_code_btn.removeClass('loading');
 
-      self.$code.focus();
+  //     self.$code.focus();
 
-      // 发送成功，则可召唤专业检师
-      self.$bookit_btn.prop('disabled', false);
+  //     // 发送成功，则可召唤专业检师
+  //     self.$bookit_btn.prop('disabled', false);
 
-      self.count_down(60, function(time) {
-        if (time > 0) {
-          return self.$get_code_btn.text(time + '秒');
-        }
+  //     self.count_down(60, function(time) {
+  //       if (time > 0) {
+  //         return self.$get_code_btn.text(time + '秒');
+  //       }
 
-        // 倒计时结束，可重发验证码
-        self.$get_code_btn
-          .prop('disabled', false)
-          .text('获取验证码');
-      });
-    }, function() {
-      toast.toggle('验证码发送失败，请重试');
-      // 发送失败，可重发验证码
-      self.$get_code_btn.removeClass('loading');
-      self.$get_code_btn.prop('disabled', false);
-    });
-  },
+  //       // 倒计时结束，可重发验证码
+  //       self.$get_code_btn
+  //         .prop('disabled', false)
+  //         .text('获取验证码');
+  //     });
+  //   }, function() {
+  //     toast.toggle('验证码发送失败，请重试');
+  //     // 发送失败，可重发验证码
+  //     self.$get_code_btn.removeClass('loading');
+  //     self.$get_code_btn.prop('disabled', false);
+  //   });
+  // },
 
-  // 立即预约
-  bookit: function() {
-    var data = this.get_data();
+  // // 立即预约
+  // bookit: function() {
+  //   var data = this.get_data();
 
-    if (!(this.validate_tel(data.mobile) && this.validate_code(data.code))) {
-      return;
-    }
+  //   if (!(this.validate_tel(data.mobile) && this.validate_code(data.code))) {
+  //     return;
+  //   }
 
-    // 若验证码计时器还在倒计时，则关闭定时器
-    if (this.count_down.timer) {
-      this.count_down.clear();
-    }
+  //   // 若验证码计时器还在倒计时，则关闭定时器
+  //   if (this.count_down.timer) {
+  //     this.count_down.clear();
+  //   }
 
-    this.$get_code_btn.prop('disabled', true);
-    this.$bookit_btn.prop('disabled', true);
+  //   this.$get_code_btn.prop('disabled', true);
+  //   this.$bookit_btn.prop('disabled', true);
 
-    // TODO
-    // 提交预约提示
+  //   // TODO
+  //   // 提交预约提示
 
-    remote.post('/order/wx', data, bookit_success, bookit_error);
+  //   remote.post('/order/wx', data, bookit_success, bookit_error);
 
-    var self = this;
+  //   var self = this;
 
-    function bookit_success(res) {
-      self.$get_code_btn
-        .prop('disabled', false)
-        .text('获取验证码');
+  //   function bookit_success(res) {
+  //     self.$get_code_btn
+  //       .prop('disabled', false)
+  //       .text('获取验证码');
 
-      self.$bookit_btn.prop('disabled', false);
+  //     self.$bookit_btn.prop('disabled', false);
 
-      toast.toggle('预约成功');
-    }
+  //     toast.toggle('预约成功');
+  //   }
 
-    function bookit_error(code, msg) {
-      self.$get_code_btn
-        .prop('disabled', false)
-        .text('获取验证码');
-      self.$bookit_btn.prop('disabled', false);
+  //   function bookit_error(code, msg) {
+  //     self.$get_code_btn
+  //       .prop('disabled', false)
+  //       .text('获取验证码');
+  //     self.$bookit_btn.prop('disabled', false);
 
-      toast.toggle('预约失败，请重试');
-    }
-  },
+  //     toast.toggle('预约失败，请重试');
+  //   }
+  // },
 
-  get_data: function() {
-    return {
-      mobile: this.$tel.val(),
-      code: this.$code.val()
-    };
-  },
+  // get_data: function() {
+  //   return {
+  //     mobile: this.$tel.val(),
+  //     code: this.$code.val()
+  //   };
+  // },
 
-  validate_tel: function(tel) {
-    var r = validator.tel(tel);
+  // validate_tel: function(tel) {
+  //   var r = validator.tel(tel);
     
-    if (!r) {
-      toast.toggle('手机号不正确');
-    }
+  //   if (!r) {
+  //     toast.toggle('手机号不正确');
+  //   }
 
-    return r;
-  },
+  //   return r;
+  // },
 
-  validate_code: function(code) {
-    var r = validator.code(code);
+  // validate_code: function(code) {
+  //   var r = validator.code(code);
 
-    if (!r) {
-      toast.toggle('验证码不正确');
-    }
+  //   if (!r) {
+  //     toast.toggle('验证码不正确');
+  //   }
 
-    return r;
-  },
+  //   return r;
+  // },
 
-  count_down: function(time, fn) {
-    var self = this;
+  // count_down: function(time, fn) {
+  //   var self = this;
 
-    this.count_down.clear = function() {
-      clearInterval(self.count_down.timer);
+  //   this.count_down.clear = function() {
+  //     clearInterval(self.count_down.timer);
 
-      self.count_down.timer = null;
-    };
+  //     self.count_down.timer = null;
+  //   };
 
-    fn(--time);
+  //   fn(--time);
 
-    return (this.count_down.timer = setInterval(function(){
-      if (time > 0) {
-        return fn(--time);  
-      }
+  //   return (this.count_down.timer = setInterval(function(){
+  //     if (time > 0) {
+  //       return fn(--time);  
+  //     }
 
-      self.count_down.clear();      
-    }, 1000));
-  }
+  //     self.count_down.clear();      
+  //   }, 1000));
+  // }
 };
 
 index_mod.init();
