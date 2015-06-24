@@ -8,11 +8,11 @@ var swiper = require('./component/swiper/index')
 
 var index_mod = {
   init: function() {
-    this.$book_btn = $('[eid="book-btn"]');
-    this.$tel = $('[eid="tel"]');
-    this.$code = $('[eid="code"]');
-    this.$get_code_btn = $('[eid="get-code-btn"]');
-    this.$bookit_btn = $('[eid="bookit-btn"]');
+    // this.$book_btn = $('[eid="book-btn"]');
+    // this.$tel = $('[eid="tel"]');
+    // this.$code = $('[eid="code"]');
+    // this.$get_code_btn = $('[eid="get-code-btn"]');
+    // this.$bookit_btn = $('[eid="bookit-btn"]');
 
     this.bindEvt();
 
@@ -35,25 +35,25 @@ var index_mod = {
     });
 
     // 按钮 - 触发弹出预约框
-    touch.on(this.$book_btn.get(0), 'tap', this.book_mgr.toggle);
+    // touch.on(this.$book_btn.get(0), 'tap', this.book_mgr.toggle);
     
     // 获取验证码
-    touch.on(this.$get_code_btn.get(0), 'tap', function() {
-      if ($(this).prop('disabled')) {
-        return;
-      }
+    // touch.on(this.$get_code_btn.get(0), 'tap', function() {
+    //   if ($(this).prop('disabled')) {
+    //     return;
+    //   }
 
-      self.identify.apply(self, arguments);
-    });
+    //   self.identify.apply(self, arguments);
+    // });
 
     // 立即预约
-    touch.on(this.$bookit_btn.get(0), 'tap', function() {
-      if ($(this).prop('disabled')) {
-        return;
-      }
+    // touch.on(this.$bookit_btn.get(0), 'tap', function() {
+    //   if ($(this).prop('disabled')) {
+    //     return;
+    //   }
 
-      self.bookit.apply(self, arguments);
-    });
+    //   self.bookit.apply(self, arguments);
+    // });
   },
 
   book_mgr: (function() {
