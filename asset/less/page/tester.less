@@ -1,12 +1,65 @@
 @import '../global/site.variable';
+@import '../global/util.less';
 
 @guluYellow: #ffc300;
 @guluBrown: #ba7e00;
 
-.profile-wrapper {
+.header {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  background-color: @guluBrown;
 
+  > div {
+    display: table-cell;
+    vertical-align: middle;
+    color: @white;
+    font-size: 16px;
+    text-align: center;
+  }
+
+
+
+  .left {
+    width: 3em;
+    
+    .back-btn {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      text-indent: -999px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+      &:before {
+        position: absolute;
+        display: block;
+        content: '';
+        border-left: 3px solid @white;
+        border-bottom: 3px solid @white;
+        height: 13px;
+        width: 13px;
+        left: 10px;
+        top: 50%;
+        transform: rotate(45deg) translate(0, -9px);
+      }
+    }
+  }
+
+  .middle {
+    h1 {
+      font-size: 18px;
+      margin: 0;
+      font-weight: normal;
+    }
+  }
+
+  .right {
+    width: 3em;
+  }
 }
-
 .profile {
   width: 100%;
   display: table;
@@ -97,9 +150,8 @@
   position: relative;
   list-style: none;
   padding-left: 0;
-  padding-bottom: 30px;
 
-  li {
+  > li {
     position: absolute;
     width: 100%;
     top: 0;
@@ -107,10 +159,81 @@
     box-sizing: border-box;
     padding-left: 15px;
     padding-right: 15px;
+    padding-bottom: 30px;
     display: none;
 
     p {
       color: #666666;
+    }
+  }
+}
+
+.case-list {
+  .clearfix();
+  margin-right: -15px;
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    float: left;
+    width: 50%;
+    margin-bottom: 15px;
+    
+    a {
+      display: block;
+      position: relative;
+      max-width: 280px;
+      margin-right: 15px;
+
+      &:active {
+        transform: scale(0.95);
+      }
+      
+      .car-pic {
+        .clearfix();
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        float: left;
+      }
+
+      .car-desc {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, .5);
+        color: @white;
+        font-size: 16px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.feedback {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    margin-bottom: 15px;
+
+    .fb-date {
+      font-size: 14px;
+      color: #999999;
+      margin-bottom: 5px;
+    }
+
+    .fb-text {
+      margin-bottom: 5px;
+    }
+
+    .fb-user {
+      text-align: right;
+      color: #999999;
     }
   }
 }
