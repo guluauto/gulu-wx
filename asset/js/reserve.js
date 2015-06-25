@@ -58,8 +58,9 @@ var reserve_mod = {
 
     var self = this;
 
-    remote.post('/code', {
-      mobile: tel
+    remote.post('/sms/bookingcode', {
+      mobile: tel,
+      type: 'booking'
     }, function() {
       self.$get_code_btn.removeClass('loading');
 
@@ -104,8 +105,11 @@ var reserve_mod = {
 
     // TODO
     // 提交预约提示
-
-    remote.post('/order/wx', data, bookit_success, bookit_error);
+    remote.post('/order', {
+      order_through: 0,
+      requester_mobile: data.mobile,
+      code: data.code
+    }, bookit_success, bookit_error);
 
     var self = this;
 
@@ -115,6 +119,7 @@ var reserve_mod = {
         .text('获取验证码');
 
       self.$bookit_btn.prop('disabled', false);
+      self.clear_field();
 
       toast.toggle('预约成功');
     }
@@ -134,6 +139,11 @@ var reserve_mod = {
       mobile: this.$tel.val(),
       code: this.$code.val()
     };
+  },
+
+  clear_field: function() {
+    this.$tel.val('');
+    this.$code.val('');
   },
 
   validate_tel: function(tel) {
