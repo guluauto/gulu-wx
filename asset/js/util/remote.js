@@ -72,3 +72,14 @@ Remote.update = function (url, data, success, error) {
     error: error
   });
 };
+
+Remote.postAsJson = function(url, data, success, error) {
+  return $.ajax({
+    url: url,
+    type: 'POST',
+    dataType: 'json',
+    data: JSON.stringify(data),
+    success: success,
+    error: error
+  });
+}
