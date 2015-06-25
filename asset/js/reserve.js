@@ -80,8 +80,6 @@ var reserve_mod = {
           .text('获取验证码');
       });
     }, function() {
-      alert(JSON.stringify(arguments));
-
       toast.toggle('验证码发送失败，请重试');
       // 发送失败，可重发验证码
       self.$get_code_btn.removeClass('loading');
