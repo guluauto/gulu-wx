@@ -79,6 +79,7 @@ Remote.postAsJson = function(url, data, success, error) {
     type: 'POST',
     dataType: 'json',
     data: JSON.stringify(data),
+    contentType: 'application/json',
     success: success,
     error: error
   });
