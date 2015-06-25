@@ -9,28 +9,6 @@
 @guluYellow: #ffc300;
 @guluBrown: #ba7e00;
 
-.pg.first {
-  background-color: #f2f2f2;
-}
-
-.reserve-container, .flow-container {
-  position: absolute;
-  width: 100%;
-  top: 50%;
-  transform: translate(0, -50%);
-}
-
-.reserve-container {
-  header {
-    margin-bottom: 50px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  .title {
-    font-size: 28px;    
-  }
-}
 
 .button {
   display: block;
@@ -48,6 +26,11 @@
     color: @white;
   }
 
+  &.brown {
+    background-color: @guluBrown;
+    color: @white;
+  }
+
   &:disabled {
     background-color: @disabledButtonBackgroundColor;
     color: @disabledButtonColor;
@@ -59,7 +42,7 @@
   padding-right: 15px;
 
   .field {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 
     &:last-child {
       margin-bottom: 0;
@@ -98,11 +81,6 @@
   }
 }
 
-.extra {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
 .divider {
   position: relative;
   overflow: hidden;
@@ -137,12 +115,103 @@
     }
   }
 }
+.pg.first {
+  background-color: #f2f2f2;
+}
+.flow-container {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+.net-reserve, .phone-reserve {
+  position: relative;
+  width: 100%;
+  height: 50%;
+
+  .inner {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  header {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 20px;
+  }
+
+  .title {
+    font-size: 18px; 
+  }
+}
+.net-reserve {
+  background-color: @guluYellow;
+
+  .form {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .form .field input[type="tel"] {
+    border-color: @guluBrown
+  }
+
+  .tip {
+    color: @guluBrown;
+    font-size: 12px;
+  }
+}
+.phone-reserve {
+  background-color: #214366;
+  color: @white;
+
+  header {
+    margin-bottom: 30px;
+  }
+}
+
+.icon {
+  display: inline-block;
+  content: '';
+  width: 26px;
+  height: 26px;
+  vertical-align: middle;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+  &.icon-dianhua {
+    background-image: url('../img/iconfont-dianhua.png');
+  }
+}
 
 .callus {
-  padding: 0px;
+  margin-bottom: 30px;
 
   a {
-    color: #333333;
+    display: block;
+    color: @white;
+    letter-spacing: 2px;
+    text-align: center;
+    font-size: 22px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: bolder;
+
+    .icon {
+      margin-right: 15px;
+    }
+  }
+} 
+.phone-reserve .tip {
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+
+  p {
+    margin-bottom: 5px;
   }
 }
 
