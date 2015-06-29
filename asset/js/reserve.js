@@ -123,7 +123,7 @@ var reserve_mod = {
       self.$bookit_btn.prop('disabled', false);
       self.clear_field();
 
-      toast.toggle('预约成功', 5000);
+      toast.toggle('预约成功，5分钟内我们联系您', 5000);
     }
 
     function bookit_error(code, msg) {
