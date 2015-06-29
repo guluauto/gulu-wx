@@ -7,6 +7,7 @@ module.exports = {
     testers: './asset/js/testers.js',
     tester: './asset/js/tester.js',
     reserve: './asset/js/reserve.js',
+    feature: './asset/js/feature.js',
     my: './asset/js/my.js',
     vendor: ['./bower_components/zepto/dist/zepto.js', './bower_components/touch.code.baidu.com/touch-0.2.14.js']
   },
