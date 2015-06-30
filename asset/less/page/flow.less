@@ -14,7 +14,8 @@
   .five-wrapper {
     position: absolute;
     top: 50%;
-    transform: translate(0, -50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding-left: 10px;
     padding-right: 10px;
   }
@@ -29,6 +30,7 @@
 .flow-list {
   padding-left: 0;
   margin: 0;
+  width: 100%;
 
   > li {
     display: table;
@@ -64,6 +66,7 @@
 
   .flow-desc {
     background-color: @flowDescBgColor;
+    width: 150px;
   }
 
   .desc-wrapper {
