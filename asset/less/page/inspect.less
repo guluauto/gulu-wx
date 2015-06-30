@@ -1,0 +1,186 @@
+@import '../global/site.variable';
+@import '../global/util.less';
+
+@guluYellow: #ffc300;
+@guluBrown: #ba7e00;
+@flowDescBgColor: #32343e;
+@flowExtraBgColor: #c34133;
+@flowExtraTextColor: #d9d9d9;
+
+@firstPgTextColor: #132c47;
+
+.inner {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  box-sizing: border-box;
+}
+
+.pg.sixth {
+  background-color: @guluYellow;
+  .dot {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 12px;
+    text-align: center;
+    border-radius: 18px;
+    box-sizing: border-box;
+    border: 6px solid #9c9c9c;
+    background-color: @white !important;
+    color: #9c9c9c;
+    vertical-align: middle;
+
+    &.massive {
+      width: 40px;
+      height: 40px;
+      line-height: 20px;
+      border-radius: 30px;
+      border: 10px solid #9c9c9c;
+    }
+
+    &.red {
+      border-color: @flowExtraBgColor;
+      color: @flowExtraBgColor;
+    }
+
+    &.blue {
+      border-color: #a0d5ca;
+      color: #a0d5ca;
+    }
+
+    &.bright {
+      border-color: #f1ddad;
+      color: #f1ddad;
+    }
+  }
+
+  .pic-list {
+    list-style: none;
+    width: 226px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    .clearfix();
+
+    > li {
+      float: left;
+      width: 113px;
+      height: 113px;
+      position: relative;
+      box-sizing: border-box;
+    }
+  }
+
+  .red {
+    background-color: @flowExtraBgColor;
+  }
+
+  .blue {
+    background-color: #a0d5ca;
+  }
+
+  .bright {
+    background-color: #f1ddad;
+  }
+
+  .dark {
+    background-color: @firstPgTextColor;
+
+    .title {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      color: @white;
+      font-size: 30px;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+  }
+
+  .pic {
+    width: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .pic-list .dot {
+    position: absolute;
+    left: -20px;
+    top: -20px;
+  }
+
+  .pic-title {
+    text-align: center;
+    font-size: 18px;
+    color: @firstPgTextColor;
+
+    b {
+      font-size: 24px;
+    }
+  }
+
+  .title-list {
+    list-style: none;
+    padding-left: 0;
+    width: 226px;
+    margin-left: auto;
+    margin-right: auto;
+
+    li {
+      margin-bottom: 5px;
+      color: @firstPgTextColor;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    i {
+      margin-right: 10px;
+    }
+  }
+
+  .tel-wrapper {
+    text-align: center;
+
+    p {
+      margin-bottom: 5px;
+      color: @firstPgTextColor;
+      font-size: 12px;
+
+      a {
+        display: block;
+        font-size: 26px;
+        color: @firstPgTextColor;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+      width: 28px;
+      height: 28px;
+      background-position: center center;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      margin-right: 10px;
+
+      &.icon-tel {
+        background-image: url('../img/feature/p6-4.png');
+      }
+    }
+  }
+}
