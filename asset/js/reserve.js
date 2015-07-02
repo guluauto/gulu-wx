@@ -58,7 +58,7 @@ var reserve_mod = {
 
     var self = this;
 
-    var xhr = remote.postAsJson('http://guluabc.com/sms/bookingcode', {
+    var xhr = remote.postAsJson('/sms/bookingcode', {
       mobile: tel,
       type: 'booking'
     }, function() {
@@ -107,7 +107,7 @@ var reserve_mod = {
 
     // TODO
     // 提交预约提示
-    remote.postAsJson('http://guluabc.com/order', {
+    remote.postAsJson('/order', {
       order_through: 0,
       requester_mobile: data.mobile,
       code: data.code
