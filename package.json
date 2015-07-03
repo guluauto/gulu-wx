@@ -1,6 +1,6 @@
 {
   "name": "gulu-wx",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "咕噜 二手车 微信",
   "main": "index.js",
   "dest": "dist",
