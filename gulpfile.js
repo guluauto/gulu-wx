@@ -24,7 +24,7 @@ var proj_config = {
 function image_task(conf) {
   return gulp
     .src(conf.img)
-    .pipe(imagemin({optimizationLevel: 5}))
+    // .pipe(imagemin({optimizationLevel: 5}))
     .pipe(gulp.dest(path.join(conf.dist, IMG_DIR_NAME)));
 }
 
