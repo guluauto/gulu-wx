@@ -13,7 +13,7 @@ var testers_mod = {
     pager('[eid="page"]', '[eid="wrapper"]');
 
     var self = this;
-    
+
     $(window).on('load', function() {
       self.pg_bg_ani.call(self);
     });
@@ -26,8 +26,6 @@ var testers_mod = {
     this.$pgbgs.css({
       left: -this.MAX_DELTA_LEFT / 2
     });
-
-    console.log(this.BG_W);
 
     this.$pgbgs.width(this.BG_W);
   },
