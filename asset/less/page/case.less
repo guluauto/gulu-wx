@@ -51,9 +51,35 @@ body {
       .case-img-mask {
         position: absolute;
         width: 100%;
-        height: 60px;
+        height: 40px;
+        line-height: 40px;
         bottom: 0;
         background-color: rgba(255, 255, 255, 0.2);
+
+        &:before {
+          position: absolute;
+          display: block;
+          content: '';
+          width: 27px;
+          height: 22px;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          margin-left: -40px;
+          background-image: url('../img/tester/icon-logo.png');
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: 27px 22px;
+        }
+
+        &:after {
+          display: block;
+          content: '检测作业';
+          text-align: center;
+          color: @guluYellow;
+          font-size: 16px;
+          padding-left: 30px;
+        }
       }
     }
   }

@@ -52,8 +52,22 @@ body {
         bottom: 0;
         padding: 8px;
         box-sizing: border-box;
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.5);
         color: @guluYellow;
+        line-height: 1.5;
+
+        &:before {
+          display: inline-block;
+          content: '';
+          width: 27px;
+          height: 22px;
+          background-image: url('../img/tester/icon-logo.png');
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: 27px 22px;
+          vertical-align: middle;
+          margin-right: 10px;
+        }
       }
     }
   }
