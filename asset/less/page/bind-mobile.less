@@ -1,0 +1,131 @@
+@import '../global/site.variable';
+@import '../global/util.less';
+
+@inputBorderColor: #cccccc;
+@inputFontSize: 14px;
+@disabledButtonBackgroundColor: #e2e2e2;
+@disabledButtonColor: #999999;
+@orange: #ffb400;
+@guluYellow: #ffc300;
+@guluBrown: #ba7e00;
+
+
+.button {
+  display: block;
+  width: 100%;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  font-size: @inputFontSize;
+  background-color: #fefefe;
+  color: #333333;
+  outline: none;
+
+  &.yellow {
+    background-color: @guluYellow;
+    color: @white;
+  }
+
+  &.brown {
+    background-color: @guluBrown;
+    color: @white;
+  }
+
+  &:disabled {
+    background-color: @disabledButtonBackgroundColor;
+    color: @disabledButtonColor;
+  }
+}
+
+.form {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  .field {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    input[type="text"], input[type="tel"], input[type="search"] {
+      border: 1px solid @inputBorderColor;
+      padding: 10px;
+      font-size: @inputFontSize;
+      width: 100%;
+    }
+  }
+
+  .field.group {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+
+    .inputer, .action {
+      display: table-cell;
+      vertical-align: top;
+    }
+
+    .inputer input, .action button {
+      width: 100%;
+    }
+
+    .inputer input {
+      border-right: none;
+    }
+
+    .action {
+      width: 7em;
+    }
+  }
+}
+
+.bind-mobile {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .inner {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  header {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 20px;
+  }
+
+  .title {
+    font-size: 18px; 
+  }
+}
+.bind-mobile {
+  background-color: @guluYellow;
+
+  .form {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .form .field input[type="tel"] {
+    border-color: @guluBrown
+  }
+  
+  .reserve-btn {
+    font-size: 20px;
+  }
+
+  .reserve-btn b {
+    font-size: 16px;
+    padding-left: 10px;
+  }
+
+  .tip {
+    color: @guluBrown;
+    font-size: 12px;
+  }
+}

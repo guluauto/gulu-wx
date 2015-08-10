@@ -12,6 +12,7 @@ module.exports = {
     flow: './asset/js/flow.js',
     inspect: './asset/js/inspect.js',
     my: './asset/js/my.js',
+    'bind-mobile': './asset/js/bind-mobile.js',
     vendor: ['./bower_components/zepto/dist/zepto.js', './bower_components/touch.code.baidu.com/touch-0.2.14.js']
   },
   output: {

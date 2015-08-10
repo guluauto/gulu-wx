@@ -1,15 +1,16 @@
 var touch = require('../../bower_components/touch.code.baidu.com/touch-0.2.14');
 var pager = require('./component/pager/index');
 var remote = require('./util/remote');
-var toast = require('./util/toast');
 var validator = require('./util/validator');
+var toast = require('./util/toast');
 
-var reserve_mod = {
+var bind_mobile_mod = {
   init: function() {
     this.$tel = $('[eid="tel"]');
     this.$code = $('[eid="code"]');
     this.$get_code_btn = $('[eid="get-code-btn"]');
-    this.$bookit_btn = $('[eid="bookit-btn"]');
+    this.$bind_btn = $('[eid="bind-btn"]');
+    this.$bind_form = $('[eid="bind-form"]');
 
     pager('[eid="page"]', '[eid="wrapper"]');
 
@@ -18,7 +19,7 @@ var reserve_mod = {
 
   bind_evt: function() {
     var self = this;
-    
+
     $(document).on('touchmove', function(e) {
       e.preventDefault();
 
@@ -26,21 +27,20 @@ var reserve_mod = {
     });
 
     // 获取验证码
-    touch.on(this.$get_code_btn.get(0), 'tap', function() {
+    touch.on(this.$get_code_btn.get(0), 'tap', function(e) {
       if ($(this).prop('disabled')) {
-        return;
+        return false;
       }
 
-      self.identify.apply(self, arguments);
+      return self.identify.apply(self, arguments);
     });
 
-    // 立即预约
-    touch.on(this.$bookit_btn.get(0), 'tap', function() {
+    this.$bind_form.on('submit', function(e) {
       if ($(this).prop('disabled')) {
-        return;
+        return false;
       }
 
-      self.bookit.apply(self, arguments);
+      return self.bind_mobile.apply(self, arguments);
     });
   },
 
@@ -49,7 +49,7 @@ var reserve_mod = {
     var tel = this.$tel.val();
 
     if (!this.validate_tel(tel)) {
-      return;
+      return false;
     }
 
     // 发送验证码 loading
@@ -67,7 +67,7 @@ var reserve_mod = {
       self.$code.focus();
 
       // 发送成功，则可召唤专业检师
-      self.$bookit_btn.prop('disabled', false);
+      self.$bind_btn.prop('disabled', false);
 
       self.count_down(60, function(time) {
         if (time > 0) {
@@ -85,14 +85,16 @@ var reserve_mod = {
       self.$get_code_btn.removeClass('loading');
       self.$get_code_btn.prop('disabled', false);
     });
+
+    return false;
   },
 
-  // 立即预约
-  bookit: function() {
+  // 提交绑定
+  bind_mobile: function() {
     var data = this.get_data();
 
     if (!(this.validate_tel(data.mobile) && this.validate_code(data.code))) {
-      return;
+      return false;
     }
 
     // 若验证码计时器还在倒计时，则关闭定时器
@@ -101,37 +103,9 @@ var reserve_mod = {
     }
 
     this.$get_code_btn.prop('disabled', true);
-    this.$bookit_btn.prop('disabled', true);
+    this.$bind_btn.prop('disabled', true);
 
-    // TODO
-    // 提交预约提示
-    remote.postAsJson('/order', {
-      order_through: 0,
-      requester_mobile: data.mobile,
-      code: data.code
-    }, bookit_success, bookit_error);
-
-    var self = this;
-
-    function bookit_success(res) {
-      self.$get_code_btn
-        .prop('disabled', false)
-        .text('获取验证码');
-
-      self.$bookit_btn.prop('disabled', false);
-      self.clear_field();
-
-      toast.toggle('预约成功，5分钟内我们联系您', 5000);
-    }
-
-    function bookit_error(code, msg) {
-      self.$get_code_btn
-        .prop('disabled', false)
-        .text('获取验证码');
-      self.$bookit_btn.prop('disabled', false);
-
-      toast.toggle('预约失败，请重试');
-    }
+    return true;
   },
 
   get_data: function() {
@@ -187,6 +161,6 @@ var reserve_mod = {
   }
 };
 
-reserve_mod.init();
+bind_mobile_mod.init();
 
-module.exports = reserve_mod;
+module.exports = bind_mobile_mod;
