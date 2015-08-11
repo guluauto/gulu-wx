@@ -27,3 +27,8 @@
     clear: both;
   }
 }
+
+.keyframes (@name, @fromRules, @toRules) {
+    @-webkit-keyframes ~'@{name}' { 0% { @fromRules(); } 100% { @toRules(); } }
+            @keyframes ~'@{name}' { 0% { @fromRules(); } 100% { @toRules(); } }
+}

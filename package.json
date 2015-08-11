@@ -5,7 +5,7 @@
   "main": "index.js",
   "dest": "dist",
   "scripts": {
-    "prestart": "npm install; ./node_modules/.bin/bower --allow-root install; cd ./bower_components/zepto && npm install && MODULES='zepto event ajax form fx_methods fx detect' npm run-script dist && cd ../../; ./node_modules/.bin/gulp; ./node_modules/.bin/webpack -p",
+    "prestart": "npm install; ./node_modules/.bin/bower --allow-root install; cd ./bower_components/zepto && npm install && MODULES='zepto event ajax form touch fx_methods fx detect' npm run-script dist && cd ../../; ./node_modules/.bin/gulp; ./node_modules/.bin/webpack -p",
     "start": "./node_modules/.bin/imock -j mock -w dist"
   },
   "repository": {
