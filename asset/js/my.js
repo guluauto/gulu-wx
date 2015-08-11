@@ -12,7 +12,7 @@ function Modal($el, opts) {
   this.$el = $el;
   $.extend(this, Modal.config, opts || {});
 
-  this.bind();
+  // this.bind();
 }
 
 Modal.prototype.bind = function() {
@@ -51,8 +51,9 @@ var my_mod = {
 
     this.$view_with_code_btns = $('[eid="view-with-code"]');
     this.$code = $('[eid="code"]');
-    this.$vertify_btn = $('[eid="vertify-btn"]');
+    this.$verify_btn = $('[eid="vertify-btn"]');
     this.$mobile = $('[eid="mobile"]');
+    this.$cancel_btn = $('[eid="cancel-btn"]');
 
     this.bind_evt();
   },
@@ -85,14 +86,18 @@ var my_mod = {
       e.stopImmediatePropagation();
 
       var $target = $(e.target);
+      self.mobile = $target.attr('mobile');
 
       if (vertifying) {
         return false;
       }
 
+      if (!confirm('报告属于' + self.mobile + ', 确认发送验证码查看?')) {
+        return false;
+      }
+
       vertifying = true;
 
-      self.mobile = $target.attr('mobile');
       self.redirect_url = $target.attr('href');
       self.$mobile.text(self.mobile);
       self.modal.show();
@@ -111,15 +116,20 @@ var my_mod = {
       return false;
     });
 
-    this.$vertify_btn.on('tap', function() {
+    this.$verify_btn.on('tap', function() {
       self.view_with_code.apply(self, arguments);
 
       return false;
     });
+
+    this.$cancel_btn.on('tap', function() {
+      self.modal.hide();
+      return false;
+    })
   },
 
   view_with_code: function(e) {
-    if (this.$vertify_btn.prop('disabled')) {
+    if (this.$verify_btn.prop('disabled')) {
       return;
     }
 
@@ -131,8 +141,8 @@ var my_mod = {
       return;
     }
 
-    this.$vertify_btn.prop('disabled', true);
-    this.$vertify_btn.addClass('loading');
+    this.$verify_btn.prop('disabled', true);
+    this.$verify_btn.addClass('loading');
 
     var self = this;
 
@@ -142,8 +152,8 @@ var my_mod = {
     }, function() {
       location.href = self.redirect_url;
     }, function(code, msg) {
-      self.$vertify_btn.prop('disabled', false);
-      self.$vertify_btn.removeClass('loading');
+      self.$verify_btn.prop('disabled', false);
+      self.$verify_btn.removeClass('loading');
       toast.toggle('验证失败: ' + msg);
     });
   }
