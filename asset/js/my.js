@@ -52,6 +52,7 @@ var my_mod = {
     this.$view_with_code_btns = $('[eid="view-with-code"]');
     this.$code = $('[eid="code"]');
     this.$vertify_btn = $('[eid="vertify-btn"]');
+    this.$mobile = $('[eid="mobile"]');
 
     this.bind_evt();
   },
@@ -93,6 +94,7 @@ var my_mod = {
 
       self.mobile = $target.attr('mobile');
       self.redirect_url = $target.attr('href');
+      self.$mobile.text(self.mobile);
       self.modal.show();
 
       remote.postAsJson('/sms/bookingcode', {
