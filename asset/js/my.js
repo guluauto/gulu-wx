@@ -97,7 +97,7 @@ var my_mod = {
       self.$mobile.text(self.mobile);
       self.modal.show();
 
-      remote.post('/sms/bookingcode', {
+      remote.postAsJson('/sms/bookingcode', {
         mobile: self.mobile,
         type: 'booking'
       }, function() {
@@ -136,7 +136,7 @@ var my_mod = {
 
     var self = this;
 
-    remote.postAsJson('/wechat/permission_vc', {
+    remote.post('/wechat/permission_vc', {
       mobile: this.mobile,
       verify_code: code
     }, function() {
