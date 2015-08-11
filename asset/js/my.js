@@ -136,7 +136,7 @@ var my_mod = {
 
     remote.postAsJson('/wechat/permission_vc', {
       mobile: this.mobile,
-      vertify_code: code
+      verify_code: code
     }, function() {
       location.href = self.redirect_url;
     }, function(code, msg) {
