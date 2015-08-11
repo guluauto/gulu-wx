@@ -97,7 +97,7 @@ var my_mod = {
       self.$mobile.text(self.mobile);
       self.modal.show();
 
-      remote.postAsJson('/sms/bookingcode', {
+      remote.post('/sms/bookingcode', {
         mobile: self.mobile,
         type: 'booking'
       }, function() {
@@ -113,6 +113,8 @@ var my_mod = {
 
     this.$vertify_btn.on('tap', function() {
       self.view_with_code.apply(self, arguments);
+
+      return false;
     });
   },
 
