@@ -140,8 +140,8 @@ var my_mod = {
     }, function() {
       location.href = self.redirect_url;
     }, function(code, msg) {
-      this.$vertify_btn.prop('disabled', false);
-      this.$vertify_btn.removeClass('loading');
+      self.$vertify_btn.prop('disabled', false);
+      self.$vertify_btn.removeClass('loading');
       toast.toggle('验证失败: ' + msg);
     });
   }
