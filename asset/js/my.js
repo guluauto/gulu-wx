@@ -12,11 +12,15 @@ function Modal($el, opts) {
   this.$el = $el;
   $.extend(this, Modal.config, opts || {});
 
-  // this.bind();
+  this.bind();
 }
 
 Modal.prototype.bind = function() {
   var self = this;
+
+  if (!this.closable) {
+    return;
+  }
 
   this.$el.on('click', function(e) {
     if (e.target !== self.$el.get(0)) {

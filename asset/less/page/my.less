@@ -1,4 +1,5 @@
 @import '../global/site.variable';
+@import '../global/util.less';
 @import './form.less';
 
 @guluYellow: #ffc300;
@@ -115,10 +116,12 @@ body {
       .car-photo {
         width: 100%;
         background-color: #089098;
+        .clearfix();
 
         img {
           width: 100%;
           height: auto;
+          float: left;
         }
       }
 
@@ -133,6 +136,10 @@ body {
           font-size: 16px;
           margin-bottom: 10px;
           color: #000000;
+
+          a {
+            color: #000000;
+          }
         }
       }
 
