@@ -1,5 +1,5 @@
 var touch = require('../../bower_components/touch.code.baidu.com/touch-0.2.14');
-var pager = require('./component/pager/index');
+var pager = require('./component/pager/');
 var remote = require('./util/remote');
 var toast = require('./util/toast');
 var validator = require('./util/validator');
@@ -153,11 +153,12 @@ var reserve_mod = {
     var self = this;
 
     function bookit_success(res) {
-      if (confirm('预约成功，5分钟内我们联系您！\n是否将手机号 ' + data.mobile + ' 绑定到当前微信账号？')) {
-        self.bind_mobile(data.mobile);
-        return;
-      }
+      // if (confirm('预约成功，5分钟内我们联系您！\n是否将手机号 ' + data.mobile + ' 绑定到当前微信账号？')) {
+      //   self.bind_mobile(data.mobile);
+      //   return;
+      // }
 
+      toast.toggle('预约成功，5分钟内我们联系您！', 5000);
       self.after_bookit();
     }
 

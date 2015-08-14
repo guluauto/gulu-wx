@@ -2,46 +2,8 @@ var touch = require('../../bower_components/touch.code.baidu.com/touch-0.2.14');
 var remote = require('./util/remote');
 var toast = require('./util/toast');
 var validator = require('./util/validator');
-var taber = require('./component/taber/index');
-
-Modal.config = {
-  on_close: function() {}
-};
-
-function Modal($el, opts) {
-  this.$el = $el;
-  $.extend(this, Modal.config, opts || {});
-
-  this.bind();
-}
-
-Modal.prototype.bind = function() {
-  var self = this;
-
-  if (!this.closable) {
-    return;
-  }
-
-  this.$el.on('click', function(e) {
-    if (e.target !== self.$el.get(0)) {
-      return;
-    }
-
-    e.stopPropagation();
-
-    self.hide();
-
-    self.on_close();
-  });
-}
-
-Modal.prototype.show = function() {
-  this.$el.fadeIn();
-}
-
-Modal.prototype.hide = function() {
-  this.$el.fadeOut();
-}
+var taber = require('./component/taber/');
+var Modal = require('./component/modal/');
 
 var my_mod = {
   init: function() {
