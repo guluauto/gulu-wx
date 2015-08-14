@@ -10,6 +10,7 @@ var reserve_mod = {
     this.$code = $('[eid="code"]');
     this.$get_code_btn = $('[eid="get-code-btn"]');
     this.$bookit_btn = $('[eid="bookit-btn"]');
+    this.$bookit_form = $('[eid="bookit-form"]');
 
     pager('[eid="page"]', '[eid="wrapper"]');
 
@@ -35,12 +36,14 @@ var reserve_mod = {
     });
 
     // 立即预约
-    touch.on(this.$bookit_btn.get(0), 'tap', function() {
-      if ($(this).prop('disabled')) {
-        return;
+    this.$bookit_form.on('submit', function() {
+      if (self.$bookit_btn.prop('disabled')) {
+        return false;
       }
 
       self.bookit.apply(self, arguments);
+
+      return false;
     });
   },
 
