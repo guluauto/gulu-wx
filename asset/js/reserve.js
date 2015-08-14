@@ -3,6 +3,7 @@ var pager = require('./component/pager/index');
 var remote = require('./util/remote');
 var toast = require('./util/toast');
 var validator = require('./util/validator');
+var page_loading = require('./component/page-loading/');
 
 var reserve_mod = {
   init: function() {
@@ -90,6 +91,43 @@ var reserve_mod = {
     });
   },
 
+  retry_bind_mobile: function(mobile) {
+    if (confirm('绑定失败，是否重试？')) {
+      this.bind_mobile(mobile);
+
+      return;
+    }
+
+    this.after_bookit();
+  },
+
+  bind_mobile: function(mobile) {
+    var self = this;
+    page_loading.show();
+
+    remote.postAsJson('/wechat/bindmobile_after_booking', {
+      mobile: mobile
+    }, function() {
+      page_loading.hide();
+      toast.toggle('绑定成功', 3000);
+      self.after_bookit();
+    }, function() {
+      page_loading.hide();
+
+      self.retry_bind_mobile(mobile);
+    });
+  },
+
+  after_bookit: function() {
+    this.$get_code_btn
+      .prop('disabled', false)
+      .text('获取验证码');
+
+    this.$bookit_btn.prop('disabled', false);
+
+    this.clear_field();
+  },
+
   // 立即预约
   bookit: function() {
     var data = this.get_data();
@@ -106,8 +144,6 @@ var reserve_mod = {
     this.$get_code_btn.prop('disabled', true);
     this.$bookit_btn.prop('disabled', true);
 
-    // TODO
-    // 提交预约提示
     remote.postAsJson('/order', {
       order_through: 0,
       requester_mobile: data.mobile,
@@ -117,14 +153,12 @@ var reserve_mod = {
     var self = this;
 
     function bookit_success(res) {
-      self.$get_code_btn
-        .prop('disabled', false)
-        .text('获取验证码');
+      if (confirm('预约成功，5分钟内我们联系您！\n是否将手机号 ' + data.mobile + ' 绑定到当前微信账号？')) {
+        self.bind_mobile(data.mobile);
+        return;
+      }
 
-      self.$bookit_btn.prop('disabled', false);
-      self.clear_field();
-
-      toast.toggle('预约成功，5分钟内我们联系您', 5000);
+      self.after_bookit();
     }
 
     function bookit_error(code, msg) {

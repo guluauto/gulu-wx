@@ -1,0 +1,21 @@
+@import '../../../less/global/site.variable';
+@import '../../../less/page/loading.less';
+
+.modal {
+  background-color: rgba(255, 255, 255, 0);
+
+  .inner {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, .8);
+    color: @white;
+
+    &:after {
+      width: 30px;
+      height: 30px;
+      margin-left: -15px;
+      margin-top: -15px;
+    }
+  }
+}

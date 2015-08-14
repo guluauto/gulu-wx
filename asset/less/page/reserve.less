@@ -1,5 +1,7 @@
 @import '../global/site.variable';
 @import '../global/util.less';
+@import './form.less';
+@import './loading.less';
 
 @inputBorderColor: #cccccc;
 @inputFontSize: 14px;
@@ -8,78 +10,6 @@
 @orange: #ffb400;
 @guluYellow: #ffc300;
 @guluBrown: #ba7e00;
-
-
-.button {
-  display: block;
-  width: 100%;
-  border: none;
-  padding: 10px;
-  text-align: center;
-  font-size: @inputFontSize;
-  background-color: #fefefe;
-  color: #333333;
-  outline: none;
-
-  &.yellow {
-    background-color: @guluYellow;
-    color: @white;
-  }
-
-  &.brown {
-    background-color: @guluBrown;
-    color: @white;
-  }
-
-  &:disabled {
-    background-color: @disabledButtonBackgroundColor;
-    color: @disabledButtonColor;
-  }
-}
-
-.form {
-  padding-left: 15px;
-  padding-right: 15px;
-
-  .field {
-    margin-bottom: 10px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    input[type="text"], input[type="tel"], input[type="search"] {
-      border: 1px solid @inputBorderColor;
-      padding: 10px;
-      font-size: @inputFontSize;
-      width: 100%;
-    }
-  }
-
-  .field.group {
-    width: 100%;
-    display: table;
-    table-layout: fixed;
-    border-collapse: collapse;
-
-    .inputer, .action {
-      display: table-cell;
-      vertical-align: top;
-    }
-
-    .inputer input, .action button {
-      width: 100%;
-    }
-
-    .inputer input {
-      border-right: none;
-    }
-
-    .action {
-      width: 7em;
-    }
-  }
-}
 
 .divider {
   position: relative;

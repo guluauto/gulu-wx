@@ -1,5 +1,4 @@
 @import '../global/site.variable';
-@import '../global/util.less';
 
 @inputBorderColor: #cccccc;
 @inputFontSize: 14px;
@@ -32,30 +31,6 @@
   &:disabled {
     background-color: @disabledButtonBackgroundColor;
     color: @disabledButtonColor;
-  }
-
-  &.loading {
-    position: relative;
-
-    &:after {
-      display: block;
-      content: '';
-      width: 20px;
-      height: 20px;
-      position: absolute;
-      top: 50%;
-      right: 10px;
-      // margin-left: -10px;
-      margin-top: -10px;
-      border-top: 2px solid lighten(red, 20%);
-      border-left: 2px solid lighten(orange, 20%);
-      border-bottom: 2px solid lighten(orange, 20%);
-      border-right: 2px solid lighten(orange, 20%);
-      border-radius: 50%;
-      animation-duration: 1s;
-      animation-name: loading;
-      animation-iteration-count: infinite;
-    }
   }
 }
 
@@ -102,9 +77,3 @@
     }
   }
 }
-
-.keyframes(loading, {
-    transform: rotate(0deg);
-  }, {
-    transform: rotate(360deg);
-  });
