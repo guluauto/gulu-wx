@@ -39,11 +39,10 @@ var my_mod = {
 
 
     var self = this;
-    var vertifying = false;
 
     this.modal = new Modal(this.$modal, {
       on_close: function() {
-        vertifying = false;
+        self.vertifying = false;
       }
     });
 
@@ -54,7 +53,7 @@ var my_mod = {
       var $target = $(e.target);
       self.mobile = $target.attr('mobile');
 
-      if (vertifying) {
+      if (self.vertifying) {
         return false;
       }
 
@@ -62,7 +61,7 @@ var my_mod = {
         return false;
       }
 
-      vertifying = true;
+      self.vertifying = true;
 
       self.redirect_url = $target.attr('href');
       self.$mobile.text(self.mobile);
@@ -76,7 +75,7 @@ var my_mod = {
         self.$code.focus();
       }, function() {
         toast.toggle('验证码发送失败，请重试');
-        vertifying = false;
+        self.vertifying = false;
       });
 
       return false;
@@ -91,7 +90,7 @@ var my_mod = {
     this.$cancel_btn.on('tap', function() {
       self.modal.hide();
       return false;
-    })
+    });
   },
 
   view_with_code: function(e) {
@@ -116,10 +115,15 @@ var my_mod = {
       mobile: this.mobile,
       verify_code: code
     }, function() {
+      self.$verify_btn.prop('disabled', false);
+      self.$verify_btn.removeClass('loading');
+      self.modal.hide();
+
       location.href = self.redirect_url;
     }, function(code, msg) {
       self.$verify_btn.prop('disabled', false);
       self.$verify_btn.removeClass('loading');
+
       toast.toggle('验证失败: ' + msg);
     });
   }

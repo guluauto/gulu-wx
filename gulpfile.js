@@ -4,7 +4,7 @@ var imagemin = require('gulp-imagemin');
 var sourcemaps = require('gulp-sourcemaps');
 var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
-var autoprefixer = require('gulp-autoprefixer')
+var autoprefixer = require('gulp-autoprefixer');
 var path = require('path');
 var pkg = require('./package.json');
 

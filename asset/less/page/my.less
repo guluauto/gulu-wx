@@ -2,7 +2,6 @@
 @import '../global/util.less';
 @import './form.less';
 @import './loading.less';
-
 @guluYellow: #ffc300;
 @guluBrown: #ba7e00;
 @serviceBodyBackgroundColor: #434242;
@@ -21,19 +20,42 @@ body {
   > div {
     display: table-cell;
     vertical-align: middle;
-    padding-top: 30px;
+    padding-top: 20px;
     padding-bottom: 30px;
   }
 }
 
-.name {
+.personal-card {
   width: 40%;
+  text-align: right;
 
-  h2 {
-    font-size: 22px;
-    text-align: right;
-    margin-bottom: 0;
-    padding-right: 15px;
+  @avatarSize: 60px;
+  @nameWidth: 90px;
+
+  .avatar {
+    display: inline-block;
+    width: @nameWidth;
+    margin-right: 15px;
+
+    img {
+      display: block;
+      width: @avatarSize;
+      height: @avatarSize;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    h2 {
+      font-size: 16px;
+      margin-bottom: 0;
+      margin-top: 5px;
+      text-align: center;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
   }
 }
 
@@ -66,7 +88,7 @@ body {
 
     &.active {
       color: @serviceBodyBackgroundColor;
-      
+
       &:after {
         position: absolute;
         left: 50%;
@@ -90,6 +112,17 @@ body {
   list-style: none;
   margin: 0;
   padding-left: 0;
+
+  .order-status {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 1;
+    background-color: @guluYellow;
+    color: @guluBrown;
+    border-radius: 2px;
+    padding: 8px 10px;
+    vertical-align: middle;
+  }
 
   > li {
     position: absolute;
@@ -130,22 +163,30 @@ body {
         padding: 15px 20px;
 
         > div {
-          color: #999999;
+          color: #999;
         }
 
         .title {
-          font-size: 16px;
+          font-size: 18px;
           margin-bottom: 10px;
-          color: #000000;
+          color: #000;
+
+          b, a {
+            display: inline-block;
+            vertical-align: middle;
+          }
 
           a {
             color: #000000;
+            font-size: 14px;
+            margin-right: 15px;
           }
         }
       }
 
       .action {
         width: 100%;
+
         a {
           display: block;
           background-color: @guluYellow;
@@ -160,15 +201,44 @@ body {
   }
 }
 
-.modal .inner {
-  background-color: @white;
-  padding-top: 15px;
-  padding-bottom: 15px;
 
-  .verify-btn {
-    left: auto;
-    right: 10px;
-    margin-left: 0;
+// 列表为空，提示
+.empty-tip {
+  .detail, .booking-link {
+    text-align: center;
+    display: block;
+  }
 
+  .detail {
+    font-size: 14px;
+    color: #bbbbbb;
+    padding: 3em 1em 1.5em;
+  }
+
+  .booking-link {
+    width: 10em;
+    height: 2.5em;
+    line-height: 2.5em;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
+    background-color: @guluYellow;
+    color: @guluBrown;
+  }
+}
+
+.modal {
+  opacity: 0;
+
+  .inner {
+    background-color: @white;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    .verify-btn {
+      left: auto;
+      right: 10px;
+      margin-left: 0;
+    }
   }
 }

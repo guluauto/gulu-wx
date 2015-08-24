@@ -29,7 +29,7 @@
   (function() {
     var hm = document.createElement("script");
     hm.src = "//hm.baidu.com/hm.js?e1f15ce51540a6a557ce2201658b177a";
-    var s = document.getElementsByTagName("script")[0]; 
+    var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(hm, s);
   })();
   </script>
@@ -37,8 +37,11 @@
 
 <body>
   <section class="profile">
-    <div class="name">
-      <h2>胡女士</h2>
+    <div class="personal-card">
+      <div class="avatar">
+        <img src="http://img0.ph.126.net/HlEiibUBr7MrFrUz0Xmqcw==/6619392051723160209.jpg" />
+        <h2>胡女士</h2>
+      </div>
     </div>
     <div class="welcome">
       <p>上午好, </p>
@@ -50,7 +53,7 @@
     <li>预约单</li>
     <li>已检测</li>
   </ul>
-  
+
   <ul class="service-body" eid="content-wrapper">
     <li class="body-item">
       <ol class="reserve-order">
@@ -61,7 +64,8 @@
           <div class="description">
             <div class="title">
               <b>李师傅</b>
-              <span>15601293842</span>
+              <a href="tel:15601293843">15601293842</a>
+              <i class="order-status">待客服确认</i>
             </div>
             <div>检测时间: 2015-05-12 11:00</div>
             <div>预约时间: 2015-06-11 12:00</div>
@@ -75,7 +79,8 @@
           <div class="description">
             <div class="title">
               <b>李师傅</b>
-              <span>15601293842</span>
+              <a href="tel:15601293843">15601293842</a>
+              <i class="order-status">待客服确认</i>
             </div>
             <div>检测时间: 2015-05-12 11:00</div>
             <div>预约时间: 2015-06-11 12:00</div>
@@ -94,6 +99,7 @@
             <div class="title">
               <b>李师傅</b>
               <a href="tel:15601293843">15601293842</a>
+              <i class="order-status">待客服确认</i>
             </div>
             <div>检测时间: 2015-05-12 11:00</div>
             <div>预约时间: 2015-06-11 12:00</div>
@@ -107,6 +113,11 @@
       </ol>
     </li>
   </ul>
+
+  <div class="empty-tip">
+    <span class="detail">亲，您还没有订单哟!</span>
+    <a href="#" class="booking-link">我要预约检测</a>
+  </div>
   <div class="modal" eid="vertify-modal">
     <div class="form inner">
       <h4>该报告属于<span eid="mobile"></span>，请输入该手机号收到的验证码</h4>
