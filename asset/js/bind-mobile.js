@@ -1,8 +1,9 @@
 var touch = require('../../bower_components/touch.code.baidu.com/touch-0.2.14');
-var pager = require('./component/pager/index');
+var pager = require('./component/pager/');
 var remote = require('./util/remote');
 var validator = require('./util/validator');
-var toast = require('./util/toast');
+var toast = require('./component/toastr/');
+var callus = require('./biz/callus/');
 
 var bind_mobile_mod = {
   init: function() {
@@ -79,8 +80,9 @@ var bind_mobile_mod = {
           .prop('disabled', false)
           .text('获取验证码');
       });
-    }, function() {
-      toast.toggle('验证码发送失败，请重试');
+    }, function(xhr) {
+      callus.show();
+      // toast.toggle('获取验证码失败，请拨打下方 400 电话绑定');
       // 发送失败，可重发验证码
       self.$get_code_btn.removeClass('loading');
       self.$get_code_btn.prop('disabled', false);
@@ -122,7 +124,7 @@ var bind_mobile_mod = {
 
   validate_tel: function(tel) {
     var r = validator.tel(tel);
-    
+
     if (!r) {
       toast.toggle('手机号不正确');
     }
@@ -153,10 +155,10 @@ var bind_mobile_mod = {
 
     return (this.count_down.timer = setInterval(function(){
       if (time > 0) {
-        return fn(--time);  
+        return fn(--time);
       }
 
-      self.count_down.clear();      
+      self.count_down.clear();
     }, 1000));
   }
 };

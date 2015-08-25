@@ -1,7 +1,7 @@
 var touch = require('../../bower_components/touch.code.baidu.com/touch-0.2.14');
 var pager = require('./component/pager/');
 var remote = require('./util/remote');
-var toast = require('./util/toast');
+var toast = require('./component/toastr/');
 var validator = require('./util/validator');
 var page_loading = require('./component/page-loading/');
 
@@ -20,7 +20,7 @@ var reserve_mod = {
 
   bind_evt: function() {
     var self = this;
-    
+
     $(document).on('touchmove', function(e) {
       e.preventDefault();
 
@@ -186,7 +186,7 @@ var reserve_mod = {
 
   validate_tel: function(tel) {
     var r = validator.tel(tel);
-    
+
     if (!r) {
       toast.toggle('手机号不正确');
     }
@@ -217,10 +217,10 @@ var reserve_mod = {
 
     return (this.count_down.timer = setInterval(function(){
       if (time > 0) {
-        return fn(--time);  
+        return fn(--time);
       }
 
-      self.count_down.clear();      
+      self.count_down.clear();
     }, 1000));
   }
 };

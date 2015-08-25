@@ -1,9 +1,10 @@
 var touch = require('../../bower_components/touch.code.baidu.com/touch-0.2.14');
 var remote = require('./util/remote');
-var toast = require('./util/toast');
+var toast = require('./component/toastr/');
 var validator = require('./util/validator');
 var taber = require('./component/taber/');
 var Modal = require('./component/modal/');
+var callus = require('./biz/callus/');
 
 var my_mod = {
   init: function() {
@@ -74,7 +75,8 @@ var my_mod = {
         toast.toggle('验证码发送成功');
         self.$code.focus();
       }, function() {
-        toast.toggle('验证码发送失败，请重试');
+        callus.show();
+        // toast.toggle('验证码发送失败，请重试');
         self.vertifying = false;
       });
 
