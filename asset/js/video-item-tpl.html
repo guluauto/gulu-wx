@@ -1,0 +1,6 @@
+{{each videos as item i}}
+<li class="video">
+  <h2>{{item.title}} <span> [{{item.address}}]</span></h2>
+  <div class="comment-img">{{#item.video_iframe}}</div>
+</li>
+{{/each}}
