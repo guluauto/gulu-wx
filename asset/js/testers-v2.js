@@ -9,13 +9,21 @@ var testers_mod = {
     });
 
     this.$pgbgs = $('.pg .bg');
-
-    pager('[eid="page"]', '[eid="wrapper"]');
+    this.pager = pager('[eid="page"]', '[eid="wrapper"]');
+    var $nexter = $('[eid="nexter"]');
 
     var self = this;
 
     $(window).on('load', function() {
       self.pg_bg_ani.call(self);
+    });
+
+    this.pager.on('scroll', function(e, page_no) {
+      if (self.pager.MAX_PAGE_NO != page_no) {
+        return $nexter.show();
+      }
+
+      $nexter.hide();
     });
   },
 

@@ -6,13 +6,14 @@ module.exports = function(container, scroller) {
   var $container = $(container);
   var $scroller = $(scroller);
   var scroller = $scroller.get(0);
-  
+
   var H = $container.height();
-  
+
   var $pgs = $scroller.children();
   var max_page_no = $pgs.length;
   var page_no = 0;
 
+  $scroller.MAX_PAGE_NO = max_page_no;
   $pgs.height(H);
 
   function scroll() {
@@ -29,6 +30,8 @@ module.exports = function(container, scroller) {
     $scroller.animate({
       translate3d: '0,' + (-page_no * H) + 'px,0'
     }, 300);
+
+    $scroller.trigger('scroll', page_no + 1);
   }
 
   function move(evt) {
@@ -54,4 +57,6 @@ module.exports = function(container, scroller) {
 
     scroll();
   });
+
+  return $scroller;
 }
